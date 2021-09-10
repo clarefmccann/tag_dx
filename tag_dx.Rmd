@@ -171,31 +171,141 @@ w3_dx_mood_current <- w3_dx_mood_current[!duplicated(w3_dx_mood_current$ID), ] #
 w3_dx_ed_current <- w3_dx_ed_current[!duplicated(w3_dx_ed_current$ID), ] ## 4 PARTICIPANTS
 
 
-## How many participants in each wave met for anxiety + mood or anxiety + ed or mood + ed current?
+## How many participants in each wave met for anxiety + mood or anxiety + ed or mood + ed currently?
 
 ## W1 
 
 w1_comorbid_current_ma <- w1_dx_mood_current[w1_dx_mood_current$ID %in% w1_dx_anxiety_current$ID,] ## 3
 w1_comorbid_current_ae <- w1_dx_anxiety_current[w1_dx_anxiety_current$ID %in% w1_dx_ed_current$ID,] ## 0 
 w1_comorbid_current_me <- w1_dx_mood_current[w1_dx_mood_current$ID %in% w1_dx_ed_current$ID,] ## 0
-w1_comorbid <- full_join(w1_comorbid_current_ae, w1_comorbid_current_ma)
-w1_comorbid <- full_join(w1_comorbid, w1_comorbid_current_me) ## 3 TOTAL
+w1_comorbid_current <- full_join(w1_comorbid_current_ae, w1_comorbid_current_ma)
+w1_comorbid_current <- full_join(w1_comorbid_current, w1_comorbid_current_me) ## 3 TOTAL
 
 # W2 
 
 w2_comorbid_current_ma <- w2_dx_mood_current[w2_dx_mood_current$ID %in% w2_dx_anxiety_current$ID,] ## 7
 w2_comorbid_current_ae <- w2_dx_anxiety_current[w2_dx_anxiety_current$ID %in% w2_dx_ed_current$ID,] ## 0 
 w2_comorbid_current_me <- w2_dx_mood_current[w2_dx_mood_current$ID %in% w2_dx_ed_current$ID,] ## 0 
-w2_comorbid <- full_join(w2_comorbid_current_ae, w2_comorbid_current_ma)
-w2_comorbid <- full_join(w2_comorbid, w2_comorbid_current_me) ## 7 TOTAL
+w2_comorbid_current <- full_join(w2_comorbid_current_ae, w2_comorbid_current_ma)
+w2_comorbid_current <- full_join(w2_comorbid_current, w2_comorbid_current_me) ## 7 TOTAL
 
 ## W3 
 
 w3_comorbid_current_ma <- w3_dx_mood_current[w3_dx_mood_current$ID %in% w3_dx_anxiety_current$ID,] 
 w3_comorbid_current_ae <- w3_dx_anxiety_current[w3_dx_anxiety_current$ID %in% w3_dx_ed_current$ID,] 
 w3_comorbid_current_me <- w3_dx_mood_current[w3_dx_mood_current$ID %in% w3_dx_ed_current$ID,] 
-w3_comorbid <- full_join(w3_comorbid_current_ae, w3_comorbid_current_ma)
-w3_comorbid <- full_join(w3_comorbid, w3_comorbid_current_me) ## 18 TOTAL
+w3_comorbid_current <- full_join(w3_comorbid_current_ae, w3_comorbid_current_ma)
+w3_comorbid_current <- full_join(w3_comorbid_current, w3_comorbid_current_me) ## 18 TOTAL
+
+## How many participants have experienced anxiety/mood/disordered eating in the past two years? 
+
+## W1 
+
+w1_dx_anxiety_past <-  w1_dx_past[which(w1_dx_past$dx_type=="1"),]
+w1_dx_mood_past <- w1_dx_past[which(w1_dx_past$dx_type=="2"),]
+w1_dx_ed_past <- w1_dx_past[which(w1_dx_past$dx_type=="3"),]
+
+w1_dx_anxiety_past <- w1_dx_anxiety_past[!duplicated(w1_dx_anxiety_past$ID), ] ## 24 PARTICIPANTS
+w1_dx_mood_past <- w1_dx_mood_past[!duplicated(w1_dx_mood_past$ID), ] ## 5 PARTICIPANTS 
+w1_dx_ed_past <- w1_dx_ed_past[!duplicated(w1_dx_ed_past$ID), ] ## 0 PARTICIPANTS
+
+## W2
+
+w2_dx_anxiety_past <-  w2_dx_past[which(w2_dx_past$dx_type=="1"),]
+w2_dx_mood_past <- w2_dx_past[which(w2_dx_past$dx_type=="2"),]
+w2_dx_ed_past <- w2_dx_past[which(w2_dx_past$dx_type=="3"),]
+
+w2_dx_anxiety_past <- w2_dx_anxiety_past[!duplicated(w2_dx_anxiety_past$ID), ] ## 38 PARTICIPANTS
+w2_dx_mood_past <- w2_dx_mood_past[!duplicated(w2_dx_mood_past$ID), ] ## 15 PARTICIPANTS 
+w2_dx_ed_past <- w2_dx_ed_past[!duplicated(w2_dx_ed_past$ID), ] ## 0 PARTICIPANTS
+
+## W3
+
+w3_dx_anxiety_past <-  w3_dx_past[which(w3_dx_past$dx_type=="1"),]
+w3_dx_mood_past <- w3_dx_past[which(w3_dx_past$dx_type=="2"),]
+w3_dx_ed_past <- w3_dx_past[which(w3_dx_past$dx_type=="3"),]
+
+w3_dx_anxiety_past <- w3_dx_anxiety_past[!duplicated(w3_dx_anxiety_past$ID), ] ## 37 PARTICIPANTS
+w3_dx_mood_past <- w3_dx_mood_past[!duplicated(w3_dx_mood_past$ID), ] ## 18 PARTICIPANTS 
+w3_dx_ed_past <- w3_dx_ed_past[!duplicated(w3_dx_ed_past$ID), ] ## 4 PARTICIPANTS
+
+
+## How many participants in each wave met for anxiety + mood or anxiety + ed or mood + ed past?
+
+## W1 
+
+w1_comorbid_past_ma <- w1_dx_mood_past[w1_dx_mood_past$ID %in% w1_dx_anxiety_past$ID,] ## 1
+w1_comorbid_past_ae <- w1_dx_anxiety_past[w1_dx_anxiety_past$ID %in% w1_dx_ed_past$ID,] ## 0 
+w1_comorbid_past_me <- w1_dx_mood_past[w1_dx_mood_past$ID %in% w1_dx_ed_past$ID,] ## 0
+w1_comorbid_past <- full_join(w1_comorbid_past_ae, w1_comorbid_past_ma)
+w1_comorbid_past <- full_join(w1_comorbid_past, w1_comorbid_past_me) ## 1 TOTAL
+
+# W2 
+
+w2_comorbid_past_ma <- w2_dx_mood_past[w2_dx_mood_past$ID %in% w2_dx_anxiety_past$ID,] ## 7
+w2_comorbid_past_ae <- w2_dx_anxiety_past[w2_dx_anxiety_past$ID %in% w2_dx_ed_past$ID,] ## 0 
+w2_comorbid_past_me <- w2_dx_mood_past[w2_dx_mood_past$ID %in% w2_dx_ed_past$ID,] ## 2 
+w2_comorbid_past <- full_join(w2_comorbid_past_ae, w2_comorbid_past_ma)
+w2_comorbid_past <- full_join(w2_comorbid_past, w2_comorbid_past_me) ## 9 TOTAL
+
+## W3 
+
+w3_comorbid_past_ma <- w3_dx_mood_past[w3_dx_mood_past$ID %in% w3_dx_anxiety_past$ID,] ## 4
+w3_comorbid_past_ae <- w3_dx_anxiety_past[w3_dx_anxiety_past$ID %in% w3_dx_ed_past$ID,] ## 2
+w3_comorbid_past_me <- w3_dx_mood_past[w3_dx_mood_past$ID %in% w3_dx_ed_past$ID,] ## 4
+w3_comorbid_past <- full_join(w3_comorbid_past_ae, w3_comorbid_past_ma)
+w3_comorbid_past <- full_join(w3_comorbid_past, w3_comorbid_past_me) ## 8 TOTAL
+
+
+```
+
+```{r visualizing}
+
+## visualizing by diagnoses participant
+
+## creating wave variable 
+
+dx_full$Wave_1_C <- paste(dx_full$W1_current)
+dx_full$Wave_1_P <- paste(dx_full$W1_past)
+dx_full$Wave_2_C <- paste(dx_full$W2_current)
+dx_full$Wave_2_P <- paste(dx_full$W2_past)
+dx_full$Wave_3_C <- paste(dx_full$W3_current)
+dx_full$Wave_3_P <- paste(dx_full$W3_past)
+
+dx_full$Wave_1_C[dx_full$Wave_1_C=="1"] = "1C"
+dx_full$Wave_1_P[dx_full$Wave_1_P=="1"] = "1P"
+dx_full$Wave_2_C[dx_full$Wave_2_C=="1"] = "2C"
+dx_full$Wave_2_P[dx_full$Wave_2_P=="1"] = "2P"
+dx_full$Wave_3_C[dx_full$Wave_3_C=="1"] = "3C"
+dx_full$Wave_3_P[dx_full$Wave_3_P=="1"] = "3P"
+
+dx_full[!is.na(dx_full$Wave_1_C),]
+dx_full[!is.na(dx_full$Wave_1_P),]
+dx_full[!is.na(dx_full$Wave_2_C),]
+dx_full[!is.na(dx_full$Wave_2_P),]
+dx_full[!is.na(dx_full$Wave_3_C),]
+dx_full[!is.na(dx_full$Wave_3_P),]
+
+dx_full <- dx_full %>%
+  unite("Wave", Wave_1_C:Wave_1_P:Wave_2_C:Wave_2_P:Wave_3_C:Wave_3_P)
+
+
+dx_by_px<-ggplot(data=dx_full,
+       aes(x=dx,
+           y=))+
+  xlim(0,40)+
+  xlab("CAMM (prior timepoint)")+
+  ylim(5,20)+
+  ylab("Scholastic Competence")+
+  geom_line(aes(group=tagid),size=.3,alpha=0.3)+
+  geom_point(aes(group=tagid,colour=wave, shape=wave),size=2,alpha=0.3)+
+  geom_smooth(method='lm', formula= y~x)+
+  theme(axis.title = element_text(face = "bold"), legend.text = element_text(face = "bold"), legend.title = element_text(face = "bold")) +
+  scale_colour_manual(name = "Wave",labels=c("2","3"), values= c("#E7B800", "#FC4E07"))+
+   scale_shape(name= "Wave",
+              labels=c(
+                       "2",
+                       "3")) + theme_minimal()
 
 
 ```
