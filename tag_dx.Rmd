@@ -79,8 +79,7 @@ dx_full <- dx_full %>%
                                                                                                                                                                                                                        ifelse(dx_type=="PD_AG", 1,
                                                                                                                                                                                                                                      ifelse(dx_type=="SepAnx", 1,
                                                                                                                                                                                                                                             ifelse(dx_type=="MDD_B", 2,
-                                                                                                                                                                                                                                                          ifelse(dx_type=="	
-MixedEp_Psychotic", 2,                                                                                        dx_type))))))))))))))))))))))))))))
+                                                                                                                                                                                                                                                          ifelse(dx_type=="MixedEp_Psychotic", 2,                                                                                        dx_type))))))))))))))))))))))))))))
 
 ## creating wave docs 
 
@@ -265,6 +264,7 @@ w3_comorbid_past <- full_join(w3_comorbid_past, w3_comorbid_past_me) ## 8 TOTAL
 
 ## creating wave variable 
 
+
 dx_full$Wave_1_C <- paste(dx_full$W1_current)
 dx_full$Wave_1_P <- paste(dx_full$W1_past)
 dx_full$Wave_2_C <- paste(dx_full$W2_current)
@@ -272,40 +272,46 @@ dx_full$Wave_2_P <- paste(dx_full$W2_past)
 dx_full$Wave_3_C <- paste(dx_full$W3_current)
 dx_full$Wave_3_P <- paste(dx_full$W3_past)
 
-dx_full$Wave_1_C[dx_full$Wave_1_C=="1"] = "1C"
-dx_full$Wave_1_P[dx_full$Wave_1_P=="1"] = "1P"
-dx_full$Wave_2_C[dx_full$Wave_2_C=="1"] = "2C"
-dx_full$Wave_2_P[dx_full$Wave_2_P=="1"] = "2P"
-dx_full$Wave_3_C[dx_full$Wave_3_C=="1"] = "3C"
-dx_full$Wave_3_P[dx_full$Wave_3_P=="1"] = "3P"
-
-dx_full[!is.na(dx_full$Wave_1_C),]
-dx_full[!is.na(dx_full$Wave_1_P),]
-dx_full[!is.na(dx_full$Wave_2_C),]
-dx_full[!is.na(dx_full$Wave_2_P),]
-dx_full[!is.na(dx_full$Wave_3_C),]
-dx_full[!is.na(dx_full$Wave_3_P),]
+dx_full$Wave_1_C[dx_full$Wave_1_C=="1"] = "1"
+dx_full$Wave_1_P[dx_full$Wave_1_P=="1"] = "1"
+dx_full$Wave_2_C[dx_full$Wave_2_C=="1"] = "2"
+dx_full$Wave_2_P[dx_full$Wave_2_P=="1"] = "2"
+dx_full$Wave_3_C[dx_full$Wave_3_C=="1"] = "3"
+dx_full$Wave_3_P[dx_full$Wave_3_P=="1"] = "3"
 
 dx_full <- dx_full %>%
   unite("Wave", Wave_1_C:Wave_1_P:Wave_2_C:Wave_2_P:Wave_3_C:Wave_3_P)
 
+dx_full <- dx_full %>%
+  mutate(Wave=ifelse(Wave=="1_NA_NA_NA_NA_NA", "1",
+                     ifelse(Wave=="NA_1_NA_NA_NA_NA", "1",
+                            ifelse(Wave=="NA_NA_2_NA_NA_NA", "2",
+                                   ifelse(Wave=="NA_NA_NA_2_NA_NA", "2",
+                                          ifelse(Wave=="NA_NA_NA_NA_3_NA", "3",
+                                                 ifelse(Wave=="NA_NA_NA_NA_NA_3", "3",
+                                                        Wave)))))))
 
-dx_by_px<-ggplot(data=dx_full,
-       aes(x=dx,
-           y=))+
-  xlim(0,40)+
-  xlab("CAMM (prior timepoint)")+
-  ylim(5,20)+
-  ylab("Scholastic Competence")+
-  geom_line(aes(group=tagid),size=.3,alpha=0.3)+
-  geom_point(aes(group=tagid,colour=wave, shape=wave),size=2,alpha=0.3)+
-  geom_smooth(method='lm', formula= y~x)+
-  theme(axis.title = element_text(face = "bold"), legend.text = element_text(face = "bold"), legend.title = element_text(face = "bold")) +
-  scale_colour_manual(name = "Wave",labels=c("2","3"), values= c("#E7B800", "#FC4E07"))+
-   scale_shape(name= "Wave",
-              labels=c(
-                       "2",
-                       "3")) + theme_minimal()
+dx_full$Wave <- as.factor(dx_full$Wave)
+dx_full$dx_type <- as.integer(dx_full$dx_type)
+
+dx_full$onset_age_months_decimal <- dx_full$onset_age_months/12
+
+dx_full$onset_age <- dx_full$onset_age_years + dx_full$onset_age_months_decimal
+
+
+dx_by_px<- ggplot(dx_full,
+                           aes(x=dx_type,
+                               y=onset_age,
+                               group=ID,
+                               color=Wave)) + 
+  geom_point(aes(group=ID),size=2,alpha=0.3,colour="#82204A") + 
+  geom_line(aes(group=ID),size=0.3,alpha=0.3,colour="#82204A")+
+  theme(axis.text.y = element_blank()) +
+  ylab("Age of Onset (years)") +
+	ylim(5, 16) +
+  xlab("Diagnosis Type")+
+  scale_x_continuous(breaks=c(1,2,3))+
+  theme_minimal()
 
 
 ```
