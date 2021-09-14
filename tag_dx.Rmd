@@ -258,7 +258,7 @@ w3_comorbid_past <- full_join(w3_comorbid_past, w3_comorbid_past_me) ## 8 TOTAL
 
 ```
 
-```{r visualizing}
+```{r visualizing for all dx}
 
 ## visualizing by diagnoses participant
 
@@ -298,19 +298,104 @@ dx_full$onset_age_months_decimal <- dx_full$onset_age_months/12
 
 dx_full$onset_age <- dx_full$onset_age_years + dx_full$onset_age_months_decimal
 
+dx_full <-  dx_full[-c(1,2),]
 
 dx_by_px<- ggplot(dx_full,
                            aes(x=dx_type,
                                y=onset_age,
                                group=ID,
-                               color=Wave)) + 
-  geom_point(aes(group=ID),size=2,alpha=0.3,colour="#82204A") + 
-  geom_line(aes(group=ID),size=0.3,alpha=0.3,colour="#82204A")+
+                               col=Wave,
+                               shape=Wave)) + 
+  geom_point(alpha=1) + 
+  geom_line(alpha=.4)+
   theme(axis.text.y = element_blank()) +
+  scale_color_manual(name= "Wave",
+                     labels = c("W1", "W2", "W3"),
+                     values = c("#5445b1", "#749dae", "#f3c483"))  +
+  scale_shape_manual(name= "Wave",
+              labels= c("W1", "W2", "W3"),
+              values = c(0, 1, 2))+
   ylab("Age of Onset (years)") +
 	ylim(5, 16) +
   xlab("Diagnosis Type")+
-  scale_x_continuous(breaks=c(1,2,3))+
+  scale_x_continuous(breaks = 1:3,
+  labels = paste0(c("Anxiety", "Mood", "Eating")))+
+  theme_minimal()
+
+
+```
+
+```{r visualizing just depressive disorders}
+
+## creating document with just depressive disorders 
+
+dx_depressive_MDD <-  dx_full[which(dx_full$dx=="MDD"),]
+dx_depressive_DYS <-  dx_full[which(dx_full$dx=="DYS"),]
+dx_depressive_DNOS <-  dx_full[which(dx_full$dx=="DNOS"),]
+
+dx_depressive <- full_join(dx_depressive_MDD, dx_depressive_DNOS)
+dx_depressive <- full_join(dx_depressive, dx_depressive_DYS)
+
+dx_depressive$dx[dx_depressive$dx=="MDD"] = "1"
+dx_depressive$dx[dx_depressive$dx=="DYS"] = "2"
+dx_depressive$dx[dx_depressive$dx=="DNOS"] = "3"
+
+
+dx_depressive$Wave_1_C <- paste(dx_depressive$W1_current)
+dx_depressive$Wave_1_P <- paste(dx_depressive$W1_past)
+dx_depressive$Wave_2_C <- paste(dx_depressive$W2_current)
+dx_depressive$Wave_2_P <- paste(dx_depressive$W2_past)
+dx_depressive$Wave_3_C <- paste(dx_depressive$W3_current)
+dx_depressive$Wave_3_P <- paste(dx_depressive$W3_past)
+
+dx_depressive$Wave_1_C[dx_depressive$Wave_1_C=="1"] = "1"
+dx_depressive$Wave_1_P[dx_depressive$Wave_1_P=="1"] = "1"
+dx_depressive$Wave_2_C[dx_depressive$Wave_2_C=="1"] = "2"
+dx_depressive$Wave_2_P[dx_depressive$Wave_2_P=="1"] = "2"
+dx_depressive$Wave_3_C[dx_depressive$Wave_3_C=="1"] = "3"
+dx_depressive$Wave_3_P[dx_depressive$Wave_3_P=="1"] = "3"
+
+dx_depressive <- dx_depressive %>%
+  unite("Wave", Wave_1_C:Wave_1_P:Wave_2_C:Wave_2_P:Wave_3_C:Wave_3_P)
+
+dx_depressive <- dx_depressive %>%
+  mutate(Wave=ifelse(Wave=="1_NA_NA_NA_NA_NA", "1",
+                     ifelse(Wave=="NA_1_NA_NA_NA_NA", "1",
+                            ifelse(Wave=="NA_NA_2_NA_NA_NA", "2",
+                                   ifelse(Wave=="NA_NA_NA_2_NA_NA", "2",
+                                          ifelse(Wave=="NA_NA_NA_NA_3_NA", "3",
+                                                 ifelse(Wave=="NA_NA_NA_NA_NA_3", "3",
+                                                        Wave)))))))
+
+dx_depressive$Wave <- as.factor(dx_depressive$Wave)
+dx_depressive$dx <- as.integer(dx_depressive$dx)
+
+dx_depressive$onset_age_months_decimal <- dx_depressive$onset_age_months/12
+
+dx_depressive$onset_age <- dx_depressive$onset_age_years + dx_depressive$onset_age_months_decimal
+
+dx_depressive <-  dx_depressive[(-1),]
+
+dep_dx_by_px<- ggplot(dx_depressive,
+                           aes(x=dx,
+                               y=onset_age,
+                               group=ID,
+                               col=Wave,
+                               shape=Wave)) + 
+  geom_point(alpha=1) + 
+  geom_line(alpha=.4)+
+  theme(axis.text.y = element_blank()) +
+  scale_color_manual(name= "Wave",
+                     labels = c("W1", "W2", "W3"),
+                     values = c("#5445b1", "#749dae", "#f3c483"))  +
+  scale_shape_manual(name= "Wave",
+              labels= c("W1", "W2", "W3"),
+              values = c(0, 1, 2))+
+  ylab("Age of Onset (years)") +
+	ylim(5, 16) +
+  xlab("Diagnosis Type")+
+  scale_x_continuous(breaks = 1:3,
+  labels = paste0(c("MDD", "DYS", "DNOS")))+
   theme_minimal()
 
 
