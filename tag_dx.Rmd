@@ -16,22 +16,26 @@ knitr::opts_chunk$set(
 ```{r Load Required Packages, message=FALSE, warning=FALSE, include=FALSE}
 ## Load required packages ##
 packages <-  c("tidyverse", 
-               "nlme")
+               "nlme", "ggplot2")
 lapply(packages, library, character.only = TRUE)
 ```
 
-Set root path for Clare
+Set root path for Clare (laptop)
 ```{r}
 root_path="/Users/clare/Desktop/projects/tag_dx/working_docs/"
 ```
 
+Set root path for work computer 
+```{r}
+root_path="~/Desktop/Projects/dx/working_docs/"
+```
 
 ```{r Load data sets}
 ##pulling CSV files & calculating cronbach alpha
 dx_full<-read.csv(paste0(root_path,"Lifetime_Diagnoses.csv"),
                   stringsAsFactors = FALSE) 
-dx_names<-read.csv(paste0(root_path,"dx_names.csv"),
-                  stringsAsFactors = FALSE)
+#dx_names<-read.csv(paste0(root_path,"dx_names.csv"),
+                  #stringsAsFactors = FALSE)
 ```
 
 ```{r new diagnoses??}
