@@ -370,6 +370,10 @@ across_3_waves <- across_3_waves[!duplicated(across_3_waves$ID), ]
 across_2_waves <- across_2_waves[!duplicated(across_2_waves$ID), ] 
 across_1_waves <- across_1_waves[!duplicated(across_1_waves$ID), ] 
 
+## co-morbid since lifetime (since wave 1) 
+
+comorbid_lifetime <- dx_full
+
 
 ```
 
@@ -427,6 +431,12 @@ colnames(dshi)[3] <- "ID"
 dshi <-dshi[, -1]
 dshi <-dshi[c(2, 1)]
 
+dshi_w1 <- dshi_w1[!duplicated(dshi_w1$ID), ] 
+dshi_w2 <- dshi_w2[!duplicated(dshi_w2$ID), ] 
+dshi_w3 <- dshi_w3[!duplicated(dshi_w3$ID), ]
+
+dshi_w3 <- dshi_w3[-c(1),]
+
 ## creating docs for folks who endorsed self-harm and met for a dx in the same wave 
 
 w1_sh_dx <- w1_dx[w1_dx$ID %in% dshi_w1$ID,]
@@ -436,6 +446,35 @@ w3_sh_dx <- w3_dx[w3_dx$ID %in% dshi_w3$ID,]
 w1_sh_dx <- w1_sh_dx[!duplicated(w1_sh_dx$ID), ] ## 7
 w2_sh_dx <- w2_sh_dx[!duplicated(w2_sh_dx$ID), ] ## 17
 w3_sh_dx <- w3_sh_dx[!duplicated(w3_sh_dx$ID), ] ## 22
+
+## creating docs for folks who endorsed self-harm but did not meet for dx 
+
+w1_sh_no_dx <- subset(dshi_w1, !(ID %in% w1_sh_dx$ID))
+w2_sh_no_dx <- subset(dshi_w2, !(ID %in% w2_sh_dx$ID))
+w3_sh_no_dx <- subset(dshi_w3, !(ID %in% w3_sh_dx$ID))
+
+w1_sh_no_dx <- w1_sh_no_dx[!duplicated(w1_sh_no_dx$ID), ] ## 13
+w2_sh_no_dx <- w2_sh_no_dx[!duplicated(w2_sh_no_dx$ID), ] ## 3
+w3_sh_no_dx <- w3_sh_no_dx[!duplicated(w3_sh_no_dx$ID), ]  ## 14
+
+## anx + self-harm 
+
+w1_sh_anx <- w1_dx_anxiety[w1_dx_anxiety$ID %in% dshi_w1$ID,] ## 5
+w2_sh_anx <- w2_dx_anxiety[w2_dx_anxiety$ID %in% dshi_w2$ID,] ## 14
+w3_sh_anx <- w3_dx_anxiety[w3_dx_anxiety$ID %in% dshi_w3$ID,] ## 22 
+
+## mood + self-harm 
+
+w1_sh_mood <- w1_dx_mood[w1_dx_mood$ID %in% dshi_w1$ID,] ## 3
+w2_sh_mood <- w2_dx_mood[w2_dx_mood$ID %in% dshi_w2$ID,] ## 13
+w3_sh_mood <- w3_dx_mood[w3_dx_mood$ID %in% dshi_w3$ID,] ## 18 
+
+## mood + anx + sh 
+
+w1_sh_anx_mood <- w1_sh_anx[w1_sh_anx$ID %in% w1_sh_mood$ID,] ## 1
+w2_sh_anx_mood <- w2_sh_anx[w2_sh_anx$ID %in% w1_sh_mood$ID,] ## 0 
+w3_sh_anx_mood <- w3_sh_anx[w3_sh_anx$ID %in% w1_sh_mood$ID,]  ## 1
+
 ```
 
 ```{r visualizing for all dx}
