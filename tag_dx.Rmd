@@ -62,14 +62,6 @@ dx_names<-read.csv(paste0(root_path,"dx_names.csv"),
 dshi <-read.csv(paste0(root_path,"DSHI_All_Waves.csv"),
                   stringsAsFactors = FALSE) 
 
-w1_count_output <- read.csv(paste0(root_path,"w1_dx_counts.csv"),
-                  stringsAsFactors = FALSE)
-w2_count_output <- read.csv(paste0(root_path,"w2_dx_counts.csv"),
-                  stringsAsFactors = FALSE)
-w3_count_output <- read.csv(paste0(root_path,"w3_dx_counts.csv"),
-                  stringsAsFactors = FALSE)
-w4_count_output <- read.csv(paste0(root_path,"w4_dx_counts.csv"),
-                  stringsAsFactors = FALSE)
 ```
 
 ## Optional: checking for new dx names
@@ -149,6 +141,7 @@ w4_dx_past <- dx_full[which(dx_full$W4_past=="1"),]
 w4_dx <- full_join(w4_dx_current, w4_dx_past)
          
 ```
+
 ## Question 1: How many participants met for any anxiety/mood/ed disorder in each wave?
 ```{r 1}
 
@@ -160,16 +153,16 @@ w1_dx_anxiety <-  w1_dx[which(w1_dx$dx_type=="1"),]
 w1_dx_mood <- w1_dx[which(w1_dx$dx_type=="2"),]
 w1_dx_ed <- w1_dx[which(w1_dx$dx_type=="3"),]
 
-w1_dx_anxiety <- w1_dx_anxiety[!duplicated(w1_dx_anxiety$ID), ] ## 35 PARTICIPANTS 
-w1_dx_mood <- w1_dx_mood[!duplicated(w1_dx_mood$ID), ] ## 12 PARTICIPANTS 
-w1_dx_ed <- w1_dx_ed[!duplicated(w1_dx_ed$ID), ] ## 0 PARTICIPANTS 
+w1_dx_anxiety <- w1_dx_anxiety[!duplicated(w1_dx_anxiety$ID), ]  
+w1_dx_mood <- w1_dx_mood[!duplicated(w1_dx_mood$ID), ]  
+w1_dx_ed <- w1_dx_ed[!duplicated(w1_dx_ed$ID), ]
 
 w1_dx_anxiety <- w1_dx_anxiety %>%
-  count(w1_dx_anxiety$ID)
+  count(ID)
 w1_dx_mood <- w1_dx_mood %>%
-  count(w1_dx_mood$ID)
+  count(ID)
 w1_dx_ed <- w1_dx_ed %>%
-  count(w1_dx_ed$ID)
+  count(ID)
 
 ## W2 
 
@@ -177,16 +170,16 @@ w2_dx_anxiety <-  w2_dx[which(w2_dx$dx_type=="1"),]
 w2_dx_mood <- w2_dx[which(w2_dx$dx_type=="2"),]
 w2_dx_ed <- w2_dx[which(w2_dx$dx_type=="3"),]
 
-w2_dx_anxiety <- w2_dx_anxiety[!duplicated(w2_dx_anxiety$ID), ]  ## 43 PARTICIPANTS
-w2_dx_mood <- w2_dx_mood[!duplicated(w2_dx_mood$ID), ]  ## 31 PARTICIPANTS 
-w2_dx_ed <- w2_dx_ed[!duplicated(w2_dx_ed$ID), ] ## 2 PARTICIPANTS 
+w2_dx_anxiety <- w2_dx_anxiety[!duplicated(w2_dx_anxiety$ID), ]  
+w2_dx_mood <- w2_dx_mood[!duplicated(w2_dx_mood$ID), ]   
+w2_dx_ed <- w2_dx_ed[!duplicated(w2_dx_ed$ID), ]  
 
 w2_dx_anxiety <- w2_dx_anxiety %>%
-  count(w2_dx_anxiety$ID)
+  count(ID)
 w2_dx_mood <- w2_dx_mood %>%
-  count(w2_dx_mood$ID)
+  count(ID)
 w2_dx_ed <- w2_dx_ed %>%
-  count(w2_dx_ed$ID)
+  count(ID)
 
 
 ## W3 
@@ -195,16 +188,16 @@ w3_dx_anxiety <-  w3_dx[which(w3_dx$dx_type=="1"),]
 w3_dx_mood <- w3_dx[which(w3_dx$dx_type=="2"),]
 w3_dx_ed <- w3_dx[which(w3_dx$dx_type=="3"),]
 
-w3_dx_anxiety <- w3_dx_anxiety[!duplicated(w3_dx_anxiety$ID), ]  ## 42 PARTICIPANTS
-w3_dx_mood <- w3_dx_mood[!duplicated(w3_dx_mood$ID), ]  ## 39 PARTICIPANTS 
-w3_dx_ed <- w3_dx_ed[!duplicated(w3_dx_ed$ID), ] ## 10 PARTICIPANTS
+w3_dx_anxiety <- w3_dx_anxiety[!duplicated(w3_dx_anxiety$ID), ]  
+w3_dx_mood <- w3_dx_mood[!duplicated(w3_dx_mood$ID), ]  
+w3_dx_ed <- w3_dx_ed[!duplicated(w3_dx_ed$ID), ] 
 
 w3_dx_anxiety <- w3_dx_anxiety %>%
-  count(w3_dx_anxiety$ID)
+  count(ID)
 w3_dx_mood <- w3_dx_mood %>%
-  count(w3_dx_mood$ID)
+  count(ID)
 w3_dx_ed <- w3_dx_ed %>%
-  count(w3_dx_ed$ID)
+  count(ID)
 
 ## w4 
 
@@ -213,22 +206,20 @@ w4_dx_mood <- w4_dx[which(w4_dx$dx_type=="2"),]
 w4_dx_ed <- w4_dx[which(w4_dx$dx_type=="3"),]
 w4_dx_co <- w4_dx[which(w4_dx$dx_type=="4"),]
 
-w4_dx_anxiety <- w4_dx_anxiety[!duplicated(w4_dx_anxiety$ID), ]  ## 13 PARTICIPANTS
-w4_dx_mood <- w4_dx_mood[!duplicated(w4_dx_mood$ID), ]  ## 7 PARTICIPANTS 
-w4_dx_ed <- w4_dx_ed[!duplicated(w4_dx_ed$ID), ] ## 1 PARTICIPANT
+w4_dx_anxiety <- w4_dx_anxiety[!duplicated(w4_dx_anxiety$ID), ]  
+w4_dx_mood <- w4_dx_mood[!duplicated(w4_dx_mood$ID), ]  
+w4_dx_ed <- w4_dx_ed[!duplicated(w4_dx_ed$ID), ] 
 
 w4_dx_anxiety <- w4_dx_anxiety %>%
-  count(w4_dx_anxiety$ID)
+  count(ID)
 w4_dx_mood <- w4_dx_mood %>%
-  count(w4_dx_mood$ID)
+  count(ID)
 w4_dx_ed <- w4_dx_ed %>%
-  count(w4_dx_ed$ID)
-
-
+  count(ID)
 
 ```
 
-#3 Question 2: How many participants are currently experiencing anxiety/mood/disordered eating?
+## Question 2: How many participants are currently experiencing anxiety/mood/disordered eating?
 ```{r 2}
 ## How many participants are currently experiencing anxiety/mood/disordered eating? 
 
@@ -242,16 +233,16 @@ w1_dx_ed_current_full <- w1_dx_current[which(w1_dx_current$dx_type=="3"),]
 
 # number of px who met for at least one current diagnosis 
 
-w1_dx_anxiety_current <- w1_dx_anxiety_current_full[!duplicated(w1_dx_anxiety_current_full$ID), ] ## 24 PARTICIPANTS
-w1_dx_mood_current <- w1_dx_mood_current_full[!duplicated(w1_dx_mood_current_full$ID), ] ## 5 PARTICIPANTS 
-w1_dx_ed_current <- w1_dx_ed_current_full[!duplicated(w1_dx_ed_current_full$ID), ] ## 0 PARTICIPANTS
+w1_dx_anxiety_current <- w1_dx_anxiety_current_full[!duplicated(w1_dx_anxiety_current_full$ID), ] 
+w1_dx_mood_current <- w1_dx_mood_current_full[!duplicated(w1_dx_mood_current_full$ID), ]   
+w1_dx_ed_current <- w1_dx_ed_current_full[!duplicated(w1_dx_ed_current_full$ID), ] 
 
 w1_dx_anxiety_current <- w1_dx_anxiety_current %>%
-  count(w1_dx_anxiety_current$ID)
+  count(ID)
 w1_dx_mood_current <- w1_dx_mood_current %>%
-  count(w1_dx_mood_current$ID)
+  count(ID)
 w1_dx_ed_current <- w1_dx_ed_current %>%
-  count(w1_dx_ed_current$ID)
+  count(ID)
 
 ## W2
 
@@ -263,16 +254,16 @@ w2_dx_ed_current_full <- w2_dx_current[which(w2_dx_current$dx_type=="3"),]
 
 # number of px who met for at least one current diagnosis 
 
-w2_dx_anxiety_current <- w2_dx_anxiety_current_full[!duplicated(w2_dx_anxiety_current_full$ID), ] ## 38 PARTICIPANTS
-w2_dx_mood_current <- w2_dx_mood_current_full[!duplicated(w2_dx_mood_current_full$ID), ] ## 15 PARTICIPANTS 
-w2_dx_ed_current <- w2_dx_ed_current_full[!duplicated(w2_dx_ed_current_full$ID), ] ## 0 PARTICIPANTS
+w2_dx_anxiety_current <- w2_dx_anxiety_current_full[!duplicated(w2_dx_anxiety_current_full$ID), ] 
+w2_dx_mood_current <- w2_dx_mood_current_full[!duplicated(w2_dx_mood_current_full$ID), ] 
+w2_dx_ed_current <- w2_dx_ed_current_full[!duplicated(w2_dx_ed_current_full$ID), ] 
 
 w2_dx_anxiety_current <- w2_dx_anxiety_current %>%
-  count(w2_dx_anxiety_current$ID)
+  count(ID)
 w2_dx_mood_current <- w2_dx_mood_current %>%
-  count(w2_dx_mood_current$ID)
+  count(ID)
 w2_dx_ed_current <- w2_dx_ed_current %>%
-  count(w2_dx_ed_current$ID)
+  count(ID)
 
 ## W3
 
@@ -284,16 +275,16 @@ w3_dx_ed_current_full <- w3_dx_current[which(w3_dx_current$dx_type=="3"),]
 
 # number of px who met for at least one current diagnosis 
 
-w3_dx_anxiety_current <- w3_dx_anxiety_current_full[!duplicated(w3_dx_anxiety_current_full$ID), ] ## 37 PARTICIPANTS
-w3_dx_mood_current <- w3_dx_mood_current_full[!duplicated(w3_dx_mood_current_full$ID), ] ## 18 PARTICIPANTS 
-w3_dx_ed_current <- w3_dx_ed_current_full[!duplicated(w3_dx_ed_current_full$ID), ] ## 4 PARTICIPANTS
+w3_dx_anxiety_current <- w3_dx_anxiety_current_full[!duplicated(w3_dx_anxiety_current_full$ID), ] 
+w3_dx_mood_current <- w3_dx_mood_current_full[!duplicated(w3_dx_mood_current_full$ID), ] 
+w3_dx_ed_current <- w3_dx_ed_current_full[!duplicated(w3_dx_ed_current_full$ID), ] 
 
 w3_dx_anxiety_current <- w3_dx_anxiety_current %>%
-  count(w3_dx_anxiety_current$ID)
+  count(ID)
 w3_dx_mood_current <- w3_dx_mood_current %>%
-  count(w3_dx_mood_current$ID)
+  count(ID)
 w3_dx_ed_current <- w3_dx_ed_current %>%
-  count(w3_dx_ed_current$ID)
+  count(ID)
 
 ## W4
 
@@ -305,16 +296,16 @@ w4_dx_ed_current_full <- w4_dx_current[which(w4_dx_current$dx_type=="3"),]
 
 # number of px who met for at least one current diagnosis 
 
-w4_dx_anxiety_current <- w4_dx_anxiety_current_full[!duplicated(w4_dx_anxiety_current_full$ID), ] ## 12 PARTICIPANTS
-w4_dx_mood_current <- w4_dx_mood_current_full[!duplicated(w4_dx_mood_current_full$ID), ] ## 3 PARTICIPANTS 
-w4_dx_ed_current <- w4_dx_ed_current_full[!duplicated(w4_dx_ed_current_full$ID), ] ## 0 PARTICIPANTS
+w4_dx_anxiety_current <- w4_dx_anxiety_current_full[!duplicated(w4_dx_anxiety_current_full$ID), ] 
+w4_dx_mood_current <- w4_dx_mood_current_full[!duplicated(w4_dx_mood_current_full$ID), ] 
+w4_dx_ed_current <- w4_dx_ed_current_full[!duplicated(w4_dx_ed_current_full$ID), ] 
 
 w4_dx_anxiety_current <- w4_dx_anxiety_current %>%
-  count(w4_dx_anxiety_current$ID)
+  count(ID)
 w4_dx_mood_current <- w4_dx_mood_current %>%
-  count(w4_dx_mood_current$ID)
+  count(ID)
 w4_dx_ed_current <- w4_dx_ed_current %>%
-  count(w4_dx_ed_current$ID)
+  count(ID)
 
 ```
 
@@ -325,32 +316,32 @@ w4_dx_ed_current <- w4_dx_ed_current %>%
 ## W1 
 
 w1_comorbid_current_ma <- w1_dx_mood_current[w1_dx_mood_current$ID %in% w1_dx_anxiety_current$ID,]
-w1_comorbid_current_ma <- w1_comorbid_current_ma[!duplicated(w1_comorbid_current_ma$ID), ] ## 3
+w1_comorbid_current_ma <- w1_comorbid_current_ma[!duplicated(w1_comorbid_current_ma$ID), ] 
 w1_comorbid_current_ae <- w1_dx_anxiety_current[w1_dx_anxiety_current$ID %in% w1_dx_ed_current$ID,]
-w1_comorbid_current_ae <- w1_comorbid_current_ae[!duplicated(w1_comorbid_current_ae$ID), ] ## 0 
+w1_comorbid_current_ae <- w1_comorbid_current_ae[!duplicated(w1_comorbid_current_ae$ID), ] 
 w1_comorbid_current_me <- w1_dx_mood_current[w1_dx_mood_current$ID %in% w1_dx_ed_current$ID,]
-w1_comorbid_current_me <- w1_comorbid_current_me[!duplicated(w1_comorbid_current_me$ID), ] ## 0
+w1_comorbid_current_me <- w1_comorbid_current_me[!duplicated(w1_comorbid_current_me$ID), ] 
 w1_comorbid_current <- full_join(w1_comorbid_current_ae, w1_comorbid_current_ma)
 w1_comorbid_current <- full_join(w1_comorbid_current, w1_comorbid_current_me)
-w1_comorbid_current <- w1_comorbid_current[!duplicated(w1_comorbid_current$ID), ] ## 3 TOTAL
+w1_comorbid_current <- w1_comorbid_current[!duplicated(w1_comorbid_current$ID), ] 
 
 w1_comorbid_current <- w1_comorbid_current%>%
-  count(w1_comorbid_current$ID)
+  count(ID)
 
 # W2 
 
 w2_comorbid_current_ma <- w2_dx_mood_current[w2_dx_mood_current$ID %in% w2_dx_anxiety_current$ID,]
-w2_comorbid_current_ma <- w2_comorbid_current_ma[!duplicated(w2_comorbid_current_ma$ID), ] ## 7
+w2_comorbid_current_ma <- w2_comorbid_current_ma[!duplicated(w2_comorbid_current_ma$ID), ] 
 w2_comorbid_current_ae <- w2_dx_anxiety_current[w2_dx_anxiety_current$ID %in% w2_dx_ed_current$ID,]
-w2_comorbid_current_ae <- w2_comorbid_current_ae[!duplicated(w2_comorbid_current_ae$ID), ]## 0 
-w2_comorbid_current_me <- w2_dx_mood_current[w2_dx_mood_current$ID %in% w2_dx_ed_current$ID,] ## 0 
+w2_comorbid_current_ae <- w2_comorbid_current_ae[!duplicated(w2_comorbid_current_ae$ID), ]
+w2_comorbid_current_me <- w2_dx_mood_current[w2_dx_mood_current$ID %in% w2_dx_ed_current$ID,] 
 w2_comorbid_current_me <- w2_comorbid_current_me[!duplicated(w2_comorbid_current_me$ID), ]
 w2_comorbid_current <- full_join(w2_comorbid_current_ae, w2_comorbid_current_ma)
 w2_comorbid_current <- full_join(w2_comorbid_current, w2_comorbid_current_me) 
-w2_comorbid_current <- w2_comorbid_current[!duplicated(w2_comorbid_current$ID), ] ## 7 TOTAL
+w2_comorbid_current <- w2_comorbid_current[!duplicated(w2_comorbid_current$ID), ] 
 
 w2_comorbid_current <- w2_comorbid_current%>%
-  count(w2_comorbid_current$ID)
+  count(ID)
 
 ## W3 
 
@@ -362,25 +353,25 @@ w3_comorbid_current_me <- w3_dx_mood_current[w3_dx_mood_current$ID %in% w3_dx_ed
 w3_comorbid_current_me <- w3_comorbid_current_me[!duplicated(w3_comorbid_current_me$ID), ]
 w3_comorbid_current <- full_join(w3_comorbid_current_ae, w3_comorbid_current_ma)
 w3_comorbid_current <- full_join(w3_comorbid_current, w3_comorbid_current_me)
-w3_comorbid_current <- w3_comorbid_current[!duplicated(w3_comorbid_current$ID), ] ## 18 TOTAL
+w3_comorbid_current <- w3_comorbid_current[!duplicated(w3_comorbid_current$ID), ] 
 
 w3_comorbid_current <- w3_comorbid_current%>%
-  count(w3_comorbid_current$ID)
+  count(ID)
 
 ## W4
 
 w4_comorbid_current_ma <- w4_dx_mood_current[w4_dx_mood_current$ID %in% w4_dx_anxiety_current$ID,]
-w4_comorbid_current_ma <- w4_comorbid_current_ma[!duplicated(w4_comorbid_current_ma$ID), ] ## 1 
+w4_comorbid_current_ma <- w4_comorbid_current_ma[!duplicated(w4_comorbid_current_ma$ID), ] 
 w4_comorbid_current_ae <- w4_dx_anxiety_current[w4_dx_anxiety_current$ID %in% w4_dx_ed_current$ID,]
-w4_comorbid_current_ae <- w4_comorbid_current_ae[!duplicated(w4_comorbid_current_ae$ID), ]## 0  
+w4_comorbid_current_ae <- w4_comorbid_current_ae[!duplicated(w4_comorbid_current_ae$ID), ]  
 w4_comorbid_current_me <- w4_dx_mood_current[w4_dx_mood_current$ID %in% w4_dx_ed_current$ID,]
-w4_comorbid_current_me <- w4_comorbid_current_me[!duplicated(w4_comorbid_current_me$ID), ]## 0 
+w4_comorbid_current_me <- w4_comorbid_current_me[!duplicated(w4_comorbid_current_me$ID), ]
 w4_comorbid_current <- full_join(w4_comorbid_current_ae, w4_comorbid_current_ma)
-w4_comorbid_current <- full_join(w4_comorbid_current, w4_comorbid_current_me) ## 1 TOTAL
+w4_comorbid_current <- full_join(w4_comorbid_current, w4_comorbid_current_me) 
 w4_comorbid_current <- w4_comorbid_current[!duplicated(w4_comorbid_current$ID), ] 
 
 w4_comorbid_current <- w4_comorbid_current%>%
-  count(w4_comorbid_current$ID)
+  count(ID)
 ```
 
 ## Question 4: How many participants have experienced anxiety/mood/disordered eating in the past two years? 
@@ -397,16 +388,16 @@ w1_dx_ed_past_full <- w1_dx_past[which(w1_dx_past$dx_type=="3"),]
 
 # number of participants who met for at least one dx since the past wave
 
-w1_dx_anxiety_past <- w1_dx_anxiety_past_full[!duplicated(w1_dx_anxiety_past_full$ID), ] ## 15 PARTICIPANTS
-w1_dx_mood_past <- w1_dx_mood_past_full[!duplicated(w1_dx_mood_past_full$ID), ] ## 8 PARTICIPANTS 
-w1_dx_ed_past <- w1_dx_ed_past_full[!duplicated(w1_dx_ed_past_full$ID), ] ## 0 PARTICIPANTS
+w1_dx_anxiety_past <- w1_dx_anxiety_past_full[!duplicated(w1_dx_anxiety_past_full$ID), ]  
+w1_dx_mood_past <- w1_dx_mood_past_full[!duplicated(w1_dx_mood_past_full$ID), ]  
+w1_dx_ed_past <- w1_dx_ed_past_full[!duplicated(w1_dx_ed_past_full$ID), ] 
 
 w1_dx_anxiety_past <- w1_dx_anxiety_past %>%
-  count(w1_dx_anxiety_past$ID)
+  count(ID)
 w1_dx_mood_past <- w1_dx_mood_past %>%
-  count(w1_dx_mood_past$ID)
+  count(ID)
 w1_dx_ed_past <- w1_dx_ed_past %>%
-  count(w1_dx_ed_past$ID)
+  count(ID)
 
 ## W2
 
@@ -418,16 +409,16 @@ w2_dx_ed_past_full <- w2_dx_past[which(w2_dx_past$dx_type=="3"),]
 
 # number of participants who met for at least one dx since the past wave
 
-w2_dx_anxiety_past <- w2_dx_anxiety_past_full[!duplicated(w2_dx_anxiety_past_full$ID), ] ## 11 PARTICIPANTS
-w2_dx_mood_past <- w2_dx_mood_past_full[!duplicated(w2_dx_mood_past_full$ID), ] ## 22 PARTICIPANTS 
-w2_dx_ed_past <- w2_dx_ed_past_full[!duplicated(w2_dx_ed_past_full$ID), ] ## 2 PARTICIPANTS
+w2_dx_anxiety_past <- w2_dx_anxiety_past_full[!duplicated(w2_dx_anxiety_past_full$ID), ] 
+w2_dx_mood_past <- w2_dx_mood_past_full[!duplicated(w2_dx_mood_past_full$ID), ]  
+w2_dx_ed_past <- w2_dx_ed_past_full[!duplicated(w2_dx_ed_past_full$ID), ] 
 
 w2_dx_anxiety_past <- w2_dx_anxiety_past %>%
-  count(w2_dx_anxiety_past$ID)
+  count(ID)
 w2_dx_mood_past <- w2_dx_mood_past %>%
-  count(w2_dx_mood_past$ID)
+  count(ID)
 w2_dx_ed_past <- w2_dx_ed_past %>%
-  count(w2_dx_ed_past$ID)
+  count(ID)
 
 ## W3
 
@@ -439,16 +430,16 @@ w3_dx_ed_past_full <- w3_dx_past[which(w3_dx_past$dx_type=="3"),]
 
 # number of participants who met for at least one dx since the past wave
 
-w3_dx_anxiety_past <- w3_dx_anxiety_past_full[!duplicated(w3_dx_anxiety_past_full$ID), ] ## 11 PARTICIPANTS
-w3_dx_mood_past <- w3_dx_mood_past_full[!duplicated(w3_dx_mood_past_full$ID), ] ## 27 PARTICIPANTS 
-w3_dx_ed_past <- w3_dx_ed_past_full[!duplicated(w3_dx_ed_past_full$ID), ] ## 7 PARTICIPANTS
+w3_dx_anxiety_past <- w3_dx_anxiety_past_full[!duplicated(w3_dx_anxiety_past_full$ID), ] 
+w3_dx_mood_past <- w3_dx_mood_past_full[!duplicated(w3_dx_mood_past_full$ID), ]  
+w3_dx_ed_past <- w3_dx_ed_past_full[!duplicated(w3_dx_ed_past_full$ID), ] 
 
 w3_dx_anxiety_past <- w3_dx_anxiety_past %>%
-  count(w3_dx_anxiety_past$ID)
+  count(ID)
 w3_dx_mood_past <- w3_dx_mood_past %>%
-  count(w3_dx_mood_past$ID)
+  count(ID)
 w3_dx_ed_past <- w3_dx_ed_past %>%
-  count(w3_dx_ed_past$ID)
+  count(ID)
 
 ## W4 
 
@@ -460,16 +451,16 @@ w4_dx_ed_past_full <- w4_dx_past[which(w4_dx_past$dx_type=="3"),]
 
 # number of participants who met for at least one dx since the past wave
 
-w4_dx_anxiety_past <- w4_dx_anxiety_past_full[!duplicated(w4_dx_anxiety_past_full$ID), ] ## 1 PARTICIPANT
-w4_dx_mood_past <- w4_dx_mood_past_full[!duplicated(w4_dx_mood_past_full$ID), ] ## 4 PARTICIPANTS 
-w4_dx_ed_past <- w4_dx_ed_past_full[!duplicated(w4_dx_ed_past_full$ID), ] ## 1 PARTICIPANT
+w4_dx_anxiety_past <- w4_dx_anxiety_past_full[!duplicated(w4_dx_anxiety_past_full$ID), ] 
+w4_dx_mood_past <- w4_dx_mood_past_full[!duplicated(w4_dx_mood_past_full$ID), ] 
+w4_dx_ed_past <- w4_dx_ed_past_full[!duplicated(w4_dx_ed_past_full$ID), ] 
 
 w4_dx_anxiety_past <- w4_dx_anxiety_past %>%
-  count(w4_dx_anxiety_past$ID)
+  count(ID)
 w4_dx_mood_past <- w4_dx_mood_past %>%
-  count(w4_dx_mood_past$ID)
+  count(ID)
 w4_dx_ed_past <- w4_dx_ed_past %>%
-  count(w4_dx_ed_past$ID)
+  count(ID)
 ```
 
 ## Question 5: How many participants in each wave met for anxiety + mood or anxiety + ed or mood + ed past?
@@ -479,62 +470,62 @@ w4_dx_ed_past <- w4_dx_ed_past %>%
 ## W1 
 
 w1_comorbid_past_ma <- w1_dx_mood_past[w1_dx_mood_past$ID %in% w1_dx_anxiety_past$ID,] 
-w1_comorbid_past_ma <- w1_comorbid_past_ma[!duplicated(w1_comorbid_past_ma$ID), ] ## 1
+w1_comorbid_past_ma <- w1_comorbid_past_ma[!duplicated(w1_comorbid_past_ma$ID), ] 
 w1_comorbid_past_ae <- w1_dx_anxiety_past[w1_dx_anxiety_past$ID %in% w1_dx_ed_past$ID,]
-w1_comorbid_past_ae <- w1_comorbid_past_ae[!duplicated(w1_comorbid_past_ae$ID), ]## 0 
+w1_comorbid_past_ae <- w1_comorbid_past_ae[!duplicated(w1_comorbid_past_ae$ID), ]
 w1_comorbid_past_me <- w1_dx_mood_past[w1_dx_mood_past$ID %in% w1_dx_ed_past$ID,] 
-w1_comorbid_past_me <- w1_comorbid_past_me[!duplicated(w1_comorbid_past_me$ID), ]## 0
+w1_comorbid_past_me <- w1_comorbid_past_me[!duplicated(w1_comorbid_past_me$ID), ]
 w1_comorbid_past <- full_join(w1_comorbid_past_ae, w1_comorbid_past_ma)
 w1_comorbid_past <- full_join(w1_comorbid_past, w1_comorbid_past_me)
-w1_comorbid_past <- w1_comorbid_past[!duplicated(w1_comorbid_past$ID), ] ## 1 TOTAL
+w1_comorbid_past <- w1_comorbid_past[!duplicated(w1_comorbid_past$ID), ] 
 
 w1_comorbid_past <- w1_comorbid_past%>%
-  count(w1_comorbid_past$ID)
+  count(ID)
 
 # W2 
 
 w2_comorbid_past_ma <- w2_dx_mood_past[w2_dx_mood_past$ID %in% w2_dx_anxiety_past$ID,] 
-w2_comorbid_past_ma <- w2_comorbid_past_ma[!duplicated(w2_comorbid_past_ma$ID), ]## 7
+w2_comorbid_past_ma <- w2_comorbid_past_ma[!duplicated(w2_comorbid_past_ma$ID), ]
 w2_comorbid_past_ae <- w2_dx_anxiety_past[w2_dx_anxiety_past$ID %in% w2_dx_ed_past$ID,]
-w2_comorbid_past_ae <- w2_comorbid_past_ae[!duplicated(w2_comorbid_past_ae$ID), ] ## 0 
+w2_comorbid_past_ae <- w2_comorbid_past_ae[!duplicated(w2_comorbid_past_ae$ID), ] 
 w2_comorbid_past_me <- w2_dx_mood_past[w2_dx_mood_past$ID %in% w2_dx_ed_past$ID,] 
-w2_comorbid_past_me <- w2_comorbid_past_me[!duplicated(w2_comorbid_past_me$ID), ] ## 2 
+w2_comorbid_past_me <- w2_comorbid_past_me[!duplicated(w2_comorbid_past_me$ID), ] 
 w2_comorbid_past <- full_join(w2_comorbid_past_ae, w2_comorbid_past_ma)
 w2_comorbid_past <- full_join(w2_comorbid_past, w2_comorbid_past_me)
-w2_comorbid_past <- w2_comorbid_past[!duplicated(w2_comorbid_past$ID), ] ## 9 TOTAL
+w2_comorbid_past <- w2_comorbid_past[!duplicated(w2_comorbid_past$ID), ]
 
 w1_comorbid_past <- w1_comorbid_past%>%
-  count(w1_comorbid_past$ID)
+  count(ID)
 
 ## W3 
 
 w3_comorbid_past_ma <- w3_dx_mood_past[w3_dx_mood_past$ID %in% w3_dx_anxiety_past$ID,] 
-w3_comorbid_past_ma <- w3_comorbid_past_ma[!duplicated(w3_comorbid_past_ma$ID), ]## 4
+w3_comorbid_past_ma <- w3_comorbid_past_ma[!duplicated(w3_comorbid_past_ma$ID), ]
 w3_comorbid_past_ae <- w3_dx_anxiety_past[w3_dx_anxiety_past$ID %in% w3_dx_ed_past$ID,] 
-w3_comorbid_past_ae <- w3_comorbid_past_ae[!duplicated(w3_comorbid_past_ae$ID), ] ## 2
+w3_comorbid_past_ae <- w3_comorbid_past_ae[!duplicated(w3_comorbid_past_ae$ID), ] 
 w3_comorbid_past_me <- w3_dx_mood_past[w3_dx_mood_past$ID %in% w3_dx_ed_past$ID,] 
-w3_comorbid_past_me <- w3_comorbid_past_me[!duplicated(w3_comorbid_past_me$ID), ] ## 4
+w3_comorbid_past_me <- w3_comorbid_past_me[!duplicated(w3_comorbid_past_me$ID), ] 
 w3_comorbid_past <- full_join(w3_comorbid_past_ae, w3_comorbid_past_ma)
 w3_comorbid_past <- full_join(w3_comorbid_past, w3_comorbid_past_me)
-w3_comorbid_past <- w3_comorbid_past[!duplicated(w3_comorbid_past$ID), ] ## 8 TOTAL
+w3_comorbid_past <- w3_comorbid_past[!duplicated(w3_comorbid_past$ID), ] 
 
 w1_comorbid_past <- w1_comorbid_past%>%
-  count(w1_comorbid_past$ID)
+  count(ID)
 
 ## W4
 
 w4_comorbid_past_ma <- w4_dx_mood_past[w4_dx_mood_past$ID %in% w4_dx_anxiety_past$ID,]
-w4_comorbid_past_ma <- w4_comorbid_past_ma[!duplicated(w4_comorbid_past_ma$ID), ]## 1
+w4_comorbid_past_ma <- w4_comorbid_past_ma[!duplicated(w4_comorbid_past_ma$ID), ]
 w4_comorbid_past_ae <- w4_dx_anxiety_past[w4_dx_anxiety_past$ID %in% w4_dx_ed_past$ID,] 
-w4_comorbid_past_ae <- w4_comorbid_past_ae[!duplicated(w4_comorbid_past_ae$ID), ] ## 1
+w4_comorbid_past_ae <- w4_comorbid_past_ae[!duplicated(w4_comorbid_past_ae$ID), ] 
 w4_comorbid_past_me <- w4_dx_mood_past[w4_dx_mood_past$ID %in% w4_dx_ed_past$ID,]
-w4_comorbid_past_me <- w4_comorbid_past_me[!duplicated(w4_comorbid_past_me$ID), ] ## 1
-w4_comorbid_past <- full_join(w4_comorbid_past_ae, w4_comorbid_past_ma) ## 1
+w4_comorbid_past_me <- w4_comorbid_past_me[!duplicated(w4_comorbid_past_me$ID), ] 
+w4_comorbid_past <- full_join(w4_comorbid_past_ae, w4_comorbid_past_ma) 
 w4_comorbid_past <- full_join(w4_comorbid_past, w4_comorbid_past_me)
-w4_comorbid_past <- w4_comorbid_past[!duplicated(w4_comorbid_past$ID), ] ## 1 TOTAL
+w4_comorbid_past <- w4_comorbid_past[!duplicated(w4_comorbid_past$ID), ] 
 
 w1_comorbid_past <- w1_comorbid_past%>%
-  count(w1_comorbid_past$ID)
+  count(ID)
 
 ```
 
@@ -542,148 +533,141 @@ w1_comorbid_past <- w1_comorbid_past%>%
 ```{r 6}
 ## How many participants met for at least one past and at least one current dx of the same classification in each wave? 
 
-w1_anx_pc <- w1_dx_anxiety_current[w1_dx_anxiety_current$ID %in% w1_dx_anxiety_past$ID, ] ## 5 
+w1_anx_pc <- w1_dx_anxiety_current[w1_dx_anxiety_current$ID %in% w1_dx_anxiety_past$ID, ] 
 w1_anx_pc <- w1_anx_pc%>%
-  count(w1_anx_pc$ID)
-w2_anx_pc <- w2_dx_anxiety_current[w2_dx_anxiety_current$ID %in% w2_dx_anxiety_past$ID, ] ## 6
+  count(ID)
+w2_anx_pc <- w2_dx_anxiety_current[w2_dx_anxiety_current$ID %in% w2_dx_anxiety_past$ID, ] 
 w2_anx_pc <- w2_anx_pc%>%
-  count(w2_anx_pc$ID)
-w3_anx_pc <- w3_dx_anxiety_current[w3_dx_anxiety_current$ID %in% w3_dx_anxiety_past$ID, ] ## 6 
+  count(ID)
+w3_anx_pc <- w3_dx_anxiety_current[w3_dx_anxiety_current$ID %in% w3_dx_anxiety_past$ID, ]  
 w3_anx_pc <- w3_anx_pc%>%
-  count(w3_anx_pc$ID)
-w4_anx_pc <- w4_dx_anxiety_current[w4_dx_anxiety_current$ID %in% w4_dx_anxiety_past$ID, ] ## 0
+  count(ID)
+w4_anx_pc <- w4_dx_anxiety_current[w4_dx_anxiety_current$ID %in% w4_dx_anxiety_past$ID, ] 
 w4_anx_pc <- w4_anx_pc%>%
-  count(w4_anx_pc$ID)
+  count(ID)
 
-w1_mood_pc <- w1_dx_mood_current[w1_dx_mood_current$ID %in% w1_dx_mood_past$ID, ] ## 1 
+w1_mood_pc <- w1_dx_mood_current[w1_dx_mood_current$ID %in% w1_dx_mood_past$ID, ]  
 w1_mood_pc <- w1_mood_pc%>%
-  count(w1_mood_pc$ID)
-w2_mood_pc <- w2_dx_mood_current[w2_dx_mood_current$ID %in% w2_dx_mood_past$ID, ] ## 6
+  count(ID)
+w2_mood_pc <- w2_dx_mood_current[w2_dx_mood_current$ID %in% w2_dx_mood_past$ID, ] 
 w2_mood_pc <- w2_mood_pc%>%
-  count(w2_mood_pc$ID)
-w3_mood_pc <- w3_dx_mood_current[w3_dx_mood_current$ID %in% w3_dx_mood_past$ID, ] ## 6 
+  count(ID)
+w3_mood_pc <- w3_dx_mood_current[w3_dx_mood_current$ID %in% w3_dx_mood_past$ID, ] 
 w3_mood_pc <- w3_mood_pc%>%
-  count(w3_mood_pc$ID)
-w4_mood_pc <- w4_dx_mood_current[w4_dx_mood_current$ID %in% w4_dx_mood_past$ID, ] ## 0 
+  count(ID)
+w4_mood_pc <- w4_dx_mood_current[w4_dx_mood_current$ID %in% w4_dx_mood_past$ID, ] 
 w4_mood_pc <- w4_mood_pc%>%
-  count(w4_mood_pc$ID)
+  count(ID)
 
-w1_ed_pc <- w1_dx_ed_current[w1_dx_ed_current$ID %in% w1_dx_ed_past$ID, ] ## 0 
+w1_ed_pc <- w1_dx_ed_current[w1_dx_ed_current$ID %in% w1_dx_ed_past$ID, ]  
 w1_ed_pc <- w1_ed_pc%>%
-  count(w1_ed_pc$ID)
-w2_ed_pc <- w2_dx_ed_current[w2_dx_ed_current$ID %in% w2_dx_ed_past$ID, ] ## 0
+  count(ID)
+w2_ed_pc <- w2_dx_ed_current[w2_dx_ed_current$ID %in% w2_dx_ed_past$ID, ] 
 w2_ed_pc <- w2_ed_pc%>%
-  count(w2_ed_pc$ID)
-w3_ed_pc <- w3_dx_ed_current[w3_dx_ed_current$ID %in% w3_dx_ed_past$ID, ] ## 1
+  count(ID)
+w3_ed_pc <- w3_dx_ed_current[w3_dx_ed_current$ID %in% w3_dx_ed_past$ID, ] 
 w3_ed_pc <- w3_ed_pc%>%
-  count(w3_ed_pc$ID)
-w4_ed_pc <- w4_dx_ed_current[w4_dx_ed_current$ID %in% w4_dx_ed_past$ID, ] ## 0 
+  count(ID)
+w4_ed_pc <- w4_dx_ed_current[w4_dx_ed_current$ID %in% w4_dx_ed_past$ID, ]  
 w4_ed_pc <- w4_ed_pc%>%
-  count(w4_ed_pc$ID)
+  count(ID)
 ```
 
 ## Question 7: How many participants met for something new at each wave?
 ```{r 7}
-## How many participants met for something new at each wave? 
+## How many participants has reoccuring diagnoses (by classification) at each wave? 
 
-# new in W2 
+# W2 
 
-w2_reoccuring_anx <- w1_dx_anxiety[w1_dx_anxiety$ID %in% w2_dx_anxiety$ID, ] ## 16 px had recurrences of anx in W2 (27 NEW) 
+w2_reoccuring_anx <- w1_dx_anxiety[w1_dx_anxiety$ID %in% w2_dx_anxiety$ID, ]  
 w2_reoccuring_anx<- w2_reoccuring_anx[!duplicated(w2_reoccuring_anx$ID), ]
 
 w2_reoccuring_anx <- w2_reoccuring_anx%>%
-  count(w2_reoccuring_anx$ID)
+  count(ID)
 
 
-# new in W3
+#  W3
 
-w1_w3_anx <- w1_dx_anxiety[w1_dx_anxiety$ID %in% w3_dx_anxiety$ID, ] # 10 px had recurrences of anx from W1 in W3 
-w2_w3_anx <- w2_dx_anxiety[w2_dx_anxiety$ID %in% w3_dx_anxiety$ID, ] # 16 px had recurrences of anx from W2 in W3
-# total recurrences = 24, total new = 19
+w1_w3_anx <- w1_dx_anxiety[w1_dx_anxiety$ID %in% w3_dx_anxiety$ID, ]  
+w2_w3_anx <- w2_dx_anxiety[w2_dx_anxiety$ID %in% w3_dx_anxiety$ID, ] 
 w3_reoccuring_anx <- full_join(w1_w3_anx, full_join(w1_w3_anx, w2_w3_anx))
 w3_reoccuring_anx<- w3_reoccuring_anx[!duplicated(w3_reoccuring_anx$ID), ]
 
 w3_reoccuring_anx <- w3_reoccuring_anx%>%
-  count(w3_reoccuring_anx$ID)
+  count(ID)
 
-# new in w4 
+# w4 
 
-w1_w4_anx <- w1_dx_anxiety[w1_dx_anxiety$ID %in% w4_dx_anxiety$ID, ] ## 4 px had reoccurences 
-w2_w4_anx <- w2_dx_anxiety[w2_dx_anxiety$ID %in% w4_dx_anxiety$ID, ] ## 7 px had reoccurences 
-w3_w4_anx <- w3_dx_anxiety[w3_dx_anxiety$ID %in% w4_dx_anxiety$ID, ] ## 5 px had reoccurences 
+w1_w4_anx <- w1_dx_anxiety[w1_dx_anxiety$ID %in% w4_dx_anxiety$ID, ] 
+w2_w4_anx <- w2_dx_anxiety[w2_dx_anxiety$ID %in% w4_dx_anxiety$ID, ] 
+w3_w4_anx <- w3_dx_anxiety[w3_dx_anxiety$ID %in% w4_dx_anxiety$ID, ]  
 w4_reoccuring_anx <- full_join(w1_w4_anx, full_join(w2_w4_anx, w3_w4_anx))
-w4_reoccuring_anx <- w4_reoccuring_anx[!duplicated(w4_reoccuring_anx$ID), ] ## 11 TOTAL 
+w4_reoccuring_anx <- w4_reoccuring_anx[!duplicated(w4_reoccuring_anx$ID), ] 
 
 w4_reoccuring_anx <- w4_reoccuring_anx%>%
-  count(w4_reoccuring_anx$ID)
+  count(ID)
 
 
-# new mood in W2 
+#  W2 
 
-w2_reoccuring_mood <- w1_dx_mood[w1_dx_mood$ID %in% w2_dx_mood$ID, ] ## 4 px had recurrences of mood in W2 (27 NEW) 
-w2_reoccuring_mood <- w2_reoccuring_mood[!duplicated(w2_reoccuring_mood$ID), ] ## 4 total 
+w2_reoccuring_mood <- w1_dx_mood[w1_dx_mood$ID %in% w2_dx_mood$ID, ] 
+w2_reoccuring_mood <- w2_reoccuring_mood[!duplicated(w2_reoccuring_mood$ID), ] 
 
 w2_reoccuring_mood <- w2_reoccuring_mood %>%
-  count(w2_reoccuring_mood$ID)
+  count(ID)
 
-# new in W3
+# W3
 
-w1_w3_mood <- w1_dx_mood[w1_dx_mood$ID %in% w3_dx_mood$ID, ] # 4 px had recurrences of mood from W1 in W3 
+w1_w3_mood <- w1_dx_mood[w1_dx_mood$ID %in% w3_dx_mood$ID, ] 
 w2_w3_mood <- w2_dx_mood[w2_dx_mood$ID %in% w3_dx_mood$ID, ] 
 w3_reoccuring_mood <- full_join(w1_w3_mood, full_join(w1_w3_mood, w2_w3_mood))
-w3_reoccuring_mood <- w3_reoccuring_mood[!duplicated(w3_reoccuring_mood$ID), ] ## 15 TOTAL 
-
-# total recurrences = 15, total new = 24
+w3_reoccuring_mood <- w3_reoccuring_mood[!duplicated(w3_reoccuring_mood$ID), ] 
 
 w3_reoccuring_mood <- w3_reoccuring_mood %>%
-  count(w3_reoccuring_mood$ID)
+  count(ID)
 
-# new mood in W4 
+#  W4 
 
-w1_w4_mood <- w1_dx_mood[w1_dx_mood$ID %in% w4_dx_mood$ID, ] ## 1 px had reoccurences 
-w2_w4_mood <- w2_dx_mood[w2_dx_mood$ID %in% w4_dx_mood$ID, ] ## 3 px had reoccurences 
-w3_w4_mood <- w3_dx_mood[w3_dx_mood$ID %in% w4_dx_mood$ID, ] ## 4 px had reoccurences 
+w1_w4_mood <- w1_dx_mood[w1_dx_mood$ID %in% w4_dx_mood$ID, ]  
+w2_w4_mood <- w2_dx_mood[w2_dx_mood$ID %in% w4_dx_mood$ID, ]  
+w3_w4_mood <- w3_dx_mood[w3_dx_mood$ID %in% w4_dx_mood$ID, ] 
 w4_reoccuring_mood <- full_join(w1_w4_mood, full_join(w2_w4_mood, w3_w4_mood))
-w4_reoccuring_mood <- w4_reoccuring_mood[!duplicated(w4_reoccuring_mood$ID), ] ## 5 TOTAL
+w4_reoccuring_mood <- w4_reoccuring_mood[!duplicated(w4_reoccuring_mood$ID), ] 
 
 w4_reoccuring_mood <- w4_reoccuring_mood %>%
-  count(w4_reoccuring_mood$ID)
+  count(ID)
 
-# new ED in W2 
+# W2 
 
-w2_reoccuring_ed  <- w1_dx_ed[w1_dx_ed$ID %in% w2_dx_ed$ID, ] ## 0 px had recurrences of anx in W2 (2 NEW) 
+w2_reoccuring_ed  <- w1_dx_ed[w1_dx_ed$ID %in% w2_dx_ed$ID, ] 
 w2_reoccuring_ed <- w2_reoccuring_ed[!duplicated(w2_reoccuring_ed$ID), ]
 
 w2_reoccuring_ed <- w2_reoccuring_ed %>%
-  count(w2_reoccuring_ed$ID)
+  count(ID)
 
-# new ED in W3
+#  W3
 
-w1_w3_ed <- w1_dx_ed[w1_dx_ed$ID %in% w3_dx_ed$ID, ] # 0 px had recurrences of anx from W1 in W3 
-w2_w3_ed <- w2_dx_ed[w2_dx_ed$ID %in% w3_dx_ed$ID, ] # 0 px had recurrences of anx from W2 in W3
-# total recurrences = 0, total new = 10
+w1_w3_ed <- w1_dx_ed[w1_dx_ed$ID %in% w3_dx_ed$ID, ] 
+w2_w3_ed <- w2_dx_ed[w2_dx_ed$ID %in% w3_dx_ed$ID, ] 
 w3_reoccuring_ed<- full_join(w1_w3_ed, full_join(w1_w3_ed, w2_w3_ed))
 w3_reoccuring_ed <- w3_reoccuring_ed[!duplicated(w3_reoccuring_ed$ID), ]
 
 w3_reoccuring_ed <- w3_reoccuring_ed %>%
-  count(w3_reoccuring_ed$ID)
+  count(ID)
 
-# new ED in W4 
+# W4 
 
-w1_w4_ed <- w1_dx_ed[w1_dx_ed$ID %in% w4_dx_ed$ID, ] ## 0 px had reoccurences 
-w2_w4_ed <- w2_dx_ed[w2_dx_ed$ID %in% w4_dx_ed$ID, ] ## 0 px had reoccurences 
-w3_w4_ed <- w3_dx_ed[w3_dx_ed$ID %in% w4_dx_ed$ID, ] ## 0 px had reoccurences 
+w1_w4_ed <- w1_dx_ed[w1_dx_ed$ID %in% w4_dx_ed$ID, ]  
+w2_w4_ed <- w2_dx_ed[w2_dx_ed$ID %in% w4_dx_ed$ID, ]  
 w4_reoccuring_ed <- full_join(w1_w4_ed, full_join(w2_w4_ed, w3_w4_ed))
-w4_reoccuring_ed <- w4_reoccuring_ed[!duplicated(w4_reoccuring_ed$ID), ] ## 0 TOTAL
+w4_reoccuring_ed <- w4_reoccuring_ed[!duplicated(w4_reoccuring_ed$ID), ] 
 
 w4_reoccuring_ed <- w4_reoccuring_ed %>%
-  count(w4_reoccuring_ed$ID)
+  count(ID)
 
 ```
 
 ```{r output count}
-
-
 
 w1_count <- data.frame(Total_Anx = sum(w1_dx_anxiety$n),
                        Total_Mood = sum(w1_dx_mood$n),
@@ -695,7 +679,7 @@ w1_count <- data.frame(Total_Anx = sum(w1_dx_anxiety$n),
                        Past_Mood = sum(w1_dx_mood_past$n),
                        Past_ED = sum(w1_dx_ed_past$n),
                        Current_Comorbid = sum(w1_comorbid_current$n),
-                       Past_Comorbid = sum(w1_comorbid_past),
+                       Past_Comorbid = sum(w1_comorbid_past$n),
                        PC_Anx = sum(w1_anx_pc$n),
                        PC_Mood = sum(w1_mood_pc$n),
                        PC_ED = sum(w1_ed_pc$n),
@@ -703,6 +687,10 @@ w1_count <- data.frame(Total_Anx = sum(w1_dx_anxiety$n),
                        Mood_New = sum(w1_dx_mood$n),
                        ED_New = sum(w1_dx_ed$n))
 
+w1_count <- w1_count %>%
+  pivot_longer(w1_count, cols=1:17, names_to = "Condition", values_to = "W1 Amount (n=174)")
+
+#write.csv(w1_count, file = "w1_count_12.2021.csv")
 
 w2_count <- data.frame(Total_Anx = sum(w2_dx_anxiety$n),
                        Total_Mood = sum(w2_dx_mood$n),
@@ -714,7 +702,7 @@ w2_count <- data.frame(Total_Anx = sum(w2_dx_anxiety$n),
                        Past_Mood = sum(w2_dx_mood_past$n),
                        Past_ED = sum(w2_dx_ed_past$n),
                        Current_Comorbid = sum(w2_comorbid_current$n),
-                       Past_Comorbid = sum(w2_comorbid_past),
+                       Past_Comorbid = sum(w2_comorbid_past$n),
                        PC_Anx = sum(w2_anx_pc$n),
                        PC_Mood = sum(w2_mood_pc$n),
                        PC_ED = sum(w2_ed_pc$n),
@@ -722,6 +710,10 @@ w2_count <- data.frame(Total_Anx = sum(w2_dx_anxiety$n),
                        Mood_New = sum(w2_dx_mood$n)-sum(w2_reoccuring_mood$n),
                        ED_New = sum(w2_dx_ed$n)-sum(w2_reoccuring_ed$n))
 
+w2_count <- w2_count %>%
+  pivot_longer(w2_count, cols=1:17, names_to = "Condition", values_to = "W2 Amount (n=163)")
+
+#write.csv(w2_count, file = "w2_count_12.2021.csv")
 
 w3_count <- data.frame(Total_Anx = sum(w3_dx_anxiety$n),
                        Total_Mood = sum(w3_dx_mood$n),
@@ -729,18 +721,22 @@ w3_count <- data.frame(Total_Anx = sum(w3_dx_anxiety$n),
                        Current_Anx = sum(w3_dx_anxiety_current$n),
                        Current_Mood = sum(w3_dx_mood_current$n),
                        Current_ED = sum(w3_dx_ed_current$n),
-                       Past_Anx = sum(w3_dx_anx_past$n),
+                       Past_Anx = sum(w3_dx_anxiety_past$n),
                        Past_Mood = sum(w3_dx_mood_past$n),
                        Past_ED = sum(w3_dx_ed_past$n),
                        Current_Comorbid = sum(w3_comorbid_current$n),
-                       Past_Comorbid = sum(w3_comorbid_past),
+                       Past_Comorbid = sum(w3_comorbid_past$n),
                        PC_Anx = sum(w3_anx_pc$n),
                        PC_Mood = sum(w3_mood_pc$n),
                        PC_ED = sum(w3_ed_pc$n),
                        Anx_New = sum(w3_dx_anxiety$n)-sum(w3_reoccuring_anx$n),
                        Mood_New = sum(w3_dx_mood$n)-sum(w3_reoccuring_mood$n),
-                       ED_New = sum(w3_dx_ed)$n-sum(w3_reoccuring_ed$n)))
+                       ED_New = sum(w3_dx_ed$n)-sum(w3_reoccuring_ed$n))
 
+w3_count <- w3_count %>%
+  pivot_longer(w3_count, cols=1:17, names_to = "Condition", values_to = "W3 Amount (n=150)")
+
+#write.csv(w3_count, file = "w3_count_12.2021.csv")
 
 w4_count <- data.frame(Total_Anx = sum(w4_dx_anxiety$n),
                        Total_Mood = sum(w4_dx_mood$n),
@@ -748,24 +744,27 @@ w4_count <- data.frame(Total_Anx = sum(w4_dx_anxiety$n),
                        Current_Anx = sum(w4_dx_anxiety_current$n),
                        Current_Mood = sum(w4_dx_mood_current$n),
                        Current_ED = sum(w4_dx_ed_current$n),
-                       Past_Anx = sum(w4_dx_anx_past$n),
+                       Past_Anx = sum(w4_dx_anxiety_past$n),
                        Past_Mood = sum(w4_dx_mood_past$n),
                        Past_ED = sum(w4_dx_ed_past$n),
                        Current_Comorbid = sum(w4_comorbid_current$n),
-                       Past_Comorbid = sum(w4_comorbid_past),
+                       Past_Comorbid = sum(w4_comorbid_past$n),
                        PC_Anx = sum(w4_anx_pc$n),
                        PC_Mood = sum(w4_mood_pc$n),
                        PC_ED = sum(w4_ed_pc$n),
                        Anx_New = sum(w4_dx_anxiety$n)-sum(w4_reoccuring_anx$n),
                        Mood_New = sum(w4_dx_mood$n)-sum(w4_reoccuring_mood$n),
-                       ED_New = sum(w4_dx_ed$n)-sum(w4_reoccuring_ed$n)))
+                       ED_New = sum(w4_dx_ed$n)-sum(w4_reoccuring_ed$n))
 
+w4_count <- w4_count %>%
+  pivot_longer(w4_count, cols=1:17, names_to = "Condition", values_to = "W4 Amount (n=39)")
 
+#write.csv(w4_count, file = "w4_count_12.2021.csv")
 
+dx_count <- full_join(w1_count, full_join(w2_count, w3_count))
+dx_count <- full_join(dx_count, w4_count)
 
-
-
-
+write.csv(dx_count, file = "dx_count.csv")
 
 ```
 
@@ -777,14 +776,23 @@ w4_count <- data.frame(Total_Anx = sum(w4_dx_anxiety$n),
 
 id_recurrences <- dx_full %>% group_by(dx, ID, dx_type) %>% tally()
 
-across_4_waves <-  id_recurrences[which(id_recurrences$n=="4"),]
-across_3_waves <-  id_recurrences[which(id_recurrences$n=="3"),]
-across_2_waves <-  id_recurrences[which(id_recurrences$n=="2"),]
-across_1_waves <-  id_recurrences[which(id_recurrences$n=="1"),]
-across_4_waves <- across_4_waves[!duplicated(across_4_waves$ID), ]
-across_3_waves <- across_3_waves[!duplicated(across_3_waves$ID), ] 
-across_2_waves <- across_2_waves[!duplicated(across_2_waves$ID), ] 
-across_1_waves <- across_1_waves[!duplicated(across_1_waves$ID), ] 
+across_4_waves_dx <-  id_recurrences[which(id_recurrences$n=="4"),]
+across_3_waves_dx <-  id_recurrences[which(id_recurrences$n=="3"),]
+across_2_waves_dx  <-  id_recurrences[which(id_recurrences$n=="2"),]
+across_1_waves_dx  <-  id_recurrences[which(id_recurrences$n=="1"),]
+across_4_waves_dx  <- across_4_waves_dx [!duplicated(across_4_waves_dx $ID), ]
+across_3_waves_dx  <- across_3_waves_dx [!duplicated(across_3_waves_dx $ID), ] 
+across_2_waves_dx  <- across_2_waves_dx [!duplicated(across_2_waves_dx $ID), ] 
+across_1_waves_dx  <- across_1_waves_dx [!duplicated(across_1_waves_dx $ID), ] 
+
+across_4_waves_dx  <- across_4_waves_dx  %>%
+  count(ID)
+across_3_waves_dx  <- across_3_waves_dx  %>%
+  count(ID)
+across_2_waves_dx  <- across_2_waves_dx  %>%
+  count(ID)
+across_1_waves_dx  <- across_1_waves_dx  %>%
+  count(ID)
 
 # BY CLASSIFICATION
 
@@ -805,15 +813,64 @@ across_3_waves_anx <- across_3_waves[which(across_3_waves$dx_type=="1"),]
 across_2_waves_anx <-  across_2_waves[which(across_2_waves$dx_type=="1"),]
 across_1_waves_anx <-  across_1_waves[which(across_1_waves$dx_type=="1"),]
 
+across_4_waves_anx <- across_4_waves_anx  %>%
+  count(ID)
+across_3_waves_anx  <- across_3_waves_anx  %>%
+  count(ID)
+across_2_waves_anx  <- across_2_waves_anx  %>%
+  count(ID)
+across_1_waves_anx  <- across_1_waves_anx  %>%
+  count(ID)
+
 across_4_waves_mood <- across_4_waves[which(across_4_waves$dx_type=="2"),]
 across_3_waves_mood <- across_3_waves[which(across_3_waves$dx_type=="2"),]
 across_2_waves_mood <-  across_2_waves[which(across_2_waves$dx_type=="2"),]
 across_1_waves_mood <-  across_1_waves[which(across_1_waves$dx_type=="2"),]
 
+across_4_waves_mood <- across_4_waves_mood %>%
+  count(ID)
+across_3_waves_mood <- across_3_waves_mood %>%
+  count(ID)
+across_2_waves_mood <- across_2_waves_mood %>%
+  count(ID)
+across_1_waves_mood <- across_1_waves_mood %>%
+  count(ID)
+
 across_4_waves_ed <- across_4_waves[which(across_4_waves$dx_type=="3"),]
 across_3_waves_ed <- across_3_waves[which(across_3_waves$dx_type=="3"),]
 across_2_waves_ed <-  across_2_waves[which(across_2_waves$dx_type=="3"),]
 across_1_waves_ed <-  across_1_waves[which(across_1_waves$dx_type=="3"),]
+
+across_4_waves_ed <- across_4_waves_ed %>%
+  count(ID)
+across_3_waves_ed <- across_3_waves_ed %>%
+  count(ID)
+across_2_waves_ed <- across_2_waves_ed %>%
+  count(ID)
+across_1_waves_ed <- across_1_waves_ed %>%
+  count(ID)
+
+occurence_count <- data.frame(Dx_1 = sum(across_1_waves_dx$n),
+                              Dx_2 = sum(across_2_waves_dx$n),
+                              Dx_3 = sum(across_3_waves_dx$n),
+                              Dx_4 = sum(across_4_waves_dx$n),
+                              Anxiety_1 = sum(across_1_waves_anx$n),
+                              Anxiety_2 = sum(across_2_waves_anx$n),
+                              Anxiety_3 = sum(across_3_waves_anx$n),
+                              Anxiety_4 = sum(across_4_waves_anx$n),
+                              Mood_1 = sum(across_1_waves_mood$n),
+                              Mood_2 = sum(across_2_waves_mood$n),
+                              Mood_3 = sum(across_3_waves_mood$n),
+                              Mood_4 = sum(across_4_waves_mood$n),
+                              ED_1 = sum(across_1_waves_ed$n),
+                              ED_2 = sum(across_2_waves_ed$n),
+                              ED_3 = sum(across_3_waves_ed$n),
+                              ED_4 = sum(across_4_waves_ed$n))
+
+occurence_count <- occurence_count %>%
+  pivot_longer(occurence_count, cols=1:16, names_to = "Condition", values_to = "Amount of Px") 
+
+write.csv(occurence_count, file = "occurence_count.12.2021.csv")
 
 ```
 
@@ -830,6 +887,8 @@ dshi[dshi=="-3"] <- "NA"
 dshi <- dshi %>% filter(dshi$Date_Endorsement != "NA")
 
 dshi <- dshi %>% filter(dshi$Self_Harm != "NA")
+
+dshi <- dshi[which(dshi$Self_Harm == "1"),]
 
 ## creating a doc with just ID and the wave they met 
 
@@ -856,12 +915,14 @@ dshi[dshi=="3.5"] <- "3"
 dshi_w1 <-  dshi[which(dshi$Wave=="1"),]
 dshi_w2 <-  dshi[which(dshi$Wave=="2"),]
 dshi_w3 <-  dshi[which(dshi$Wave=="3"),]
+dshi_w4 <-  dshi[which(dshi$Wave=="4"),]
 
 ## changing the class of Wave to integer 
 
 dshi_w1$Wave <-  as.integer(dshi_w1$Wave)
 dshi_w2$Wave <-  as.integer(dshi_w2$Wave)
 dshi_w3$Wave <-  as.integer(dshi_w3$Wave)
+dshi_w4$Wave <-  as.integer(dshi_w4$Wave)
 
 dshi <-dshi %>%
   mutate(no_underscores=paste0("TAG",
@@ -874,6 +935,7 @@ dshi <-dshi[c(2, 1)]
 dshi_w1 <- dshi_w1[!duplicated(dshi_w1$ID), ] 
 dshi_w2 <- dshi_w2[!duplicated(dshi_w2$ID), ] 
 dshi_w3 <- dshi_w3[!duplicated(dshi_w3$ID), ]
+dshi_w4 <- dshi_w4[!duplicated(dshi_w4$ID), ]
 
 dshi_w3 <- dshi_w3[-c(1),]
 
