@@ -604,7 +604,7 @@ w3_w4_anx <- w3_dx_anxiety[w3_dx_anxiety$ID %in% w4_dx_anxiety$ID, ]
 w4_reoccuring_anx <- full_join(w1_w4_anx, full_join(w2_w4_anx, w3_w4_anx))
 w4_reoccuring_anx <- w4_reoccuring_anx[!duplicated(w4_reoccuring_anx$ID), ] 
 
-w4_reoccuring_anx <- w4_reoccuring_anx%>%
+w4_reoccuring_anx <- w4_reoccuring_anx %>%
   count(ID)
 
 
@@ -658,7 +658,8 @@ w3_reoccuring_ed <- w3_reoccuring_ed %>%
 # W4 
 
 w1_w4_ed <- w1_dx_ed[w1_dx_ed$ID %in% w4_dx_ed$ID, ]  
-w2_w4_ed <- w2_dx_ed[w2_dx_ed$ID %in% w4_dx_ed$ID, ]  
+w2_w4_ed <- w2_dx_ed[w2_dx_ed$ID %in% w4_dx_ed$ID, ] 
+w3_w4_ed <- w3_dx_ed[w3_dx_ed$ID %in% w4_dx_ed$ID, ]  
 w4_reoccuring_ed <- full_join(w1_w4_ed, full_join(w2_w4_ed, w3_w4_ed))
 w4_reoccuring_ed <- w4_reoccuring_ed[!duplicated(w4_reoccuring_ed$ID), ] 
 
@@ -908,6 +909,7 @@ dshi <-dshi[c(2, 1)]
 
 dshi[dshi=="3.5 (Month 1)"] <- "3"
 dshi[dshi=="3.5 (Month 2)"] <- "3"
+dshi[dshi=="3.5 (Month 3)"] <- "3"
 dshi[dshi=="3.5"] <- "3"
 
 ## creating separate wave docs for dshi endorsements 
@@ -924,20 +926,21 @@ dshi_w2$Wave <-  as.integer(dshi_w2$Wave)
 dshi_w3$Wave <-  as.integer(dshi_w3$Wave)
 dshi_w4$Wave <-  as.integer(dshi_w4$Wave)
 
-dshi <-dshi %>%
-  mutate(no_underscores=paste0("TAG",
-                               substring(ID,first=5,last=length(ID))))
-
-colnames(dshi)[3] <- "ID"
-dshi <-dshi[, -1]
-dshi <-dshi[c(2, 1)]
 
 dshi_w1 <- dshi_w1[!duplicated(dshi_w1$ID), ] 
 dshi_w2 <- dshi_w2[!duplicated(dshi_w2$ID), ] 
 dshi_w3 <- dshi_w3[!duplicated(dshi_w3$ID), ]
 dshi_w4 <- dshi_w4[!duplicated(dshi_w4$ID), ]
 
-dshi_w3 <- dshi_w3[-c(1),]
+dshi_w1 <- dshi_w1 %>%
+  count(ID)
+dshi_w2 <- dshi_w2 %>%
+  count(ID)
+dshi_w3 <- dshi_w3 %>%
+  count(ID)
+dshi_w4 <- dshi_w4 %>%
+  count(ID)
+
 
 ```
 
@@ -949,38 +952,121 @@ dshi_w3 <- dshi_w3[-c(1),]
 w1_sh_dx <- w1_dx[w1_dx$ID %in% dshi_w1$ID,]
 w2_sh_dx <- w2_dx[w2_dx$ID %in% dshi_w2$ID,]
 w3_sh_dx <- w3_dx[w3_dx$ID %in% dshi_w3$ID,]
+w4_sh_dx <- w4_dx[w4_dx$ID %in% dshi_w4$ID,]
 
-w1_sh_dx <- w1_sh_dx[!duplicated(w1_sh_dx$ID), ] ## 7
-w2_sh_dx <- w2_sh_dx[!duplicated(w2_sh_dx$ID), ] ## 17
-w3_sh_dx <- w3_sh_dx[!duplicated(w3_sh_dx$ID), ] ## 22
+w1_sh_dx <- w1_sh_dx[!duplicated(w1_sh_dx$ID), ] 
+w2_sh_dx <- w2_sh_dx[!duplicated(w2_sh_dx$ID), ]
+w3_sh_dx <- w3_sh_dx[!duplicated(w3_sh_dx$ID), ] 
+w4_sh_dx <- w4_sh_dx[!duplicated(w4_sh_dx$ID), ] 
+
+w1_sh_dx <- w1_sh_dx %>%
+  count(ID)
+w2_sh_dx <- w2_sh_dx %>%
+  count(ID)
+w3_sh_dx <- w3_sh_dx %>%
+  count(ID)
+w4_sh_dx <- w4_sh_dx %>%
+  count(ID)
+
 
 ## creating docs for folks who endorsed self-harm but did not meet for dx 
 
 w1_sh_no_dx <- subset(dshi_w1, !(ID %in% w1_sh_dx$ID))
 w2_sh_no_dx <- subset(dshi_w2, !(ID %in% w2_sh_dx$ID))
 w3_sh_no_dx <- subset(dshi_w3, !(ID %in% w3_sh_dx$ID))
+w4_sh_no_dx <- subset(dshi_w4, !(ID %in% w4_sh_dx$ID))
 
-w1_sh_no_dx <- w1_sh_no_dx[!duplicated(w1_sh_no_dx$ID), ] ## 13
-w2_sh_no_dx <- w2_sh_no_dx[!duplicated(w2_sh_no_dx$ID), ] ## 3
-w3_sh_no_dx <- w3_sh_no_dx[!duplicated(w3_sh_no_dx$ID), ]  ## 14
+w1_sh_no_dx <- w1_sh_no_dx[!duplicated(w1_sh_no_dx$ID), ] 
+w2_sh_no_dx <- w2_sh_no_dx[!duplicated(w2_sh_no_dx$ID), ] 
+w3_sh_no_dx <- w3_sh_no_dx[!duplicated(w3_sh_no_dx$ID), ]  
+w4_sh_no_dx <- w4_sh_no_dx[!duplicated(w4_sh_no_dx$ID), ]
+
+w1_sh_no_dx <- w1_sh_no_dx %>%
+  count(ID)
+w2_sh_no_dx <- w2_sh_no_dx %>%
+  count(ID)
+w3_sh_no_dx <- w3_sh_no_dx %>%
+  count(ID)
+w4_sh_no_dx <- w4_sh_no_dx %>%
+  count(ID)
 
 ## anx + self-harm 
 
-w1_sh_anx <- w1_dx_anxiety[w1_dx_anxiety$ID %in% dshi_w1$ID,] ## 5
-w2_sh_anx <- w2_dx_anxiety[w2_dx_anxiety$ID %in% dshi_w2$ID,] ## 14
-w3_sh_anx <- w3_dx_anxiety[w3_dx_anxiety$ID %in% dshi_w3$ID,] ## 22 
+w1_sh_anx <- w1_dx_anxiety[w1_dx_anxiety$ID %in% dshi_w1$ID,]
+w2_sh_anx <- w2_dx_anxiety[w2_dx_anxiety$ID %in% dshi_w2$ID,] 
+w3_sh_anx <- w3_dx_anxiety[w3_dx_anxiety$ID %in% dshi_w3$ID,] 
+w4_sh_anx <- w4_dx_anxiety[w4_dx_anxiety$ID %in% dshi_w4$ID,] 
+
+w1_sh_anx <- w1_sh_anx %>%
+  count(ID)
+w2_sh_anx <- w2_sh_anx %>%
+  count(ID)
+w3_sh_anx <- w3_sh_anx %>%
+  count(ID)
+w4_sh_anx <- w4_sh_anx %>%
+  count(ID)
 
 ## mood + self-harm 
 
-w1_sh_mood <- w1_dx_mood[w1_dx_mood$ID %in% dshi_w1$ID,] ## 3
-w2_sh_mood <- w2_dx_mood[w2_dx_mood$ID %in% dshi_w2$ID,] ## 13
-w3_sh_mood <- w3_dx_mood[w3_dx_mood$ID %in% dshi_w3$ID,] ## 18 
+w1_sh_mood <- w1_dx_mood[w1_dx_mood$ID %in% dshi_w1$ID,] 
+w2_sh_mood <- w2_dx_mood[w2_dx_mood$ID %in% dshi_w2$ID,] 
+w3_sh_mood <- w3_dx_mood[w3_dx_mood$ID %in% dshi_w3$ID,] 
+w4_sh_mood <- w4_dx_mood[w4_dx_mood$ID %in% dshi_w4$ID,]
+
+w1_sh_mood <- w1_sh_mood %>%
+  count(ID)
+w2_sh_mood <- w2_sh_mood %>%
+  count(ID)
+w3_sh_mood <- w3_sh_mood %>%
+  count(ID)
+w4_sh_mood <- w4_sh_mood %>%
+  count(ID)
 
 ## mood + anx + sh 
 
-w1_sh_anx_mood <- w1_sh_anx[w1_sh_anx$ID %in% w1_sh_mood$ID,] ## 1
-w2_sh_anx_mood <- w2_sh_anx[w2_sh_anx$ID %in% w1_sh_mood$ID,] ## 0 
-w3_sh_anx_mood <- w3_sh_anx[w3_sh_anx$ID %in% w1_sh_mood$ID,]  ## 1
+w1_sh_anx_mood <- w1_sh_anx[w1_sh_anx$ID %in% w1_sh_mood$ID,] 
+w2_sh_anx_mood <- w2_sh_anx[w2_sh_anx$ID %in% w2_sh_mood$ID,] 
+w3_sh_anx_mood <- w3_sh_anx[w3_sh_anx$ID %in% w3_sh_mood$ID,]  
+w4_sh_anx_mood <- w4_sh_anx[w4_sh_anx$ID %in% w4_sh_mood$ID,]
+
+w1_sh_anx_mood <- w1_sh_anx_mood %>%
+  count(ID)
+w2_sh_anx_mood <- w2_sh_anx_mood %>%
+  count(ID)
+w3_sh_anx_mood <- w3_sh_anx_mood %>%
+  count(ID)
+w4_sh_anx_mood <- w4_sh_anx_mood %>%
+  count(ID)
+
+self_harm_count <- data.frame(W1_SH = sum(dshi_w1$n),
+                              W2_SH = sum(dshi_w2$n),
+                              W3_SH = sum(dshi_w3$n),
+                              W4_SH = sum(dshi_w4$n),
+                              W1_SH_Dx = sum(w1_sh_dx$n),
+                              W2_SH_Dx = sum(w2_sh_dx$n),
+                              W3_SH_Dx = sum(w3_sh_dx$n),
+                              W4_SH_Dx = sum(w4_sh_dx$n),
+                              W1_Sh_no_Dx = sum(w1_sh_no_dx$n),
+                              W2_Sh_no_Dx = sum(w2_sh_no_dx$n),
+                              W3_Sh_no_Dx = sum(w3_sh_no_dx$n),
+                              W4_Sh_no_Dx = sum(w4_sh_no_dx$n),
+                              W1_Anx_SH = sum(w1_sh_anx$n),
+                              W2_Anx_SH = sum(w2_sh_anx$n),
+                              W3_Anx_SH = sum(w3_sh_anx$n),
+                              W4_Anx_SH = sum(w4_sh_anx$n),
+                              W1_Mood_SH = sum(w1_sh_mood$n),
+                              W2_Mood_SH = sum(w2_sh_mood$n),
+                              W3_Mood_SH = sum(w3_sh_mood$n),
+                              W4_Mood_SH = sum(w4_sh_mood$n),
+                              W1_Anx_Mood_SH = sum(w1_sh_anx_mood$n),
+                              W2_Anx_Mood_SH = sum(w2_sh_anx_mood$n),
+                              W3_Anx_Mood_SH = sum(w3_sh_anx_mood$n),
+                              W4_Anx_Mood_SH = sum(w4_sh_anx_mood$n))
+
+self_harm_count <- self_harm_count %>%
+  pivot_longer(self_harm_count, cols=1:24, names_to = "Condition", values_to = "Amount")
+
+write.csv(self_harm_count, file = "self_harm_count.csv")
 
 ```
 
