@@ -1,0 +1,3 @@
+*.Rhistory linguist-detectable=true
+*.Rmd linguist-detectable=true
+*.RData linguist-detectable=true
